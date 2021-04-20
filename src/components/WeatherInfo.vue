@@ -20,7 +20,7 @@
           cols="6"
         >
         <center>
-          <div class="temp"> 23&deg;C</div>
+          <div class="temp"> {{forecast.current.temp}}&deg;C</div>
         </center>
         </v-col>
         <v-col cols="6">
