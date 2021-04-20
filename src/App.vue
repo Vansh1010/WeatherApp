@@ -15,7 +15,7 @@
             style="width:50%"
           >
           </v-text-field>
-          <v-btn @click="searchLocation" style="height: 55px"><v-icon>mdi-magnify</v-icon></v-btn>
+          <v-btn @click="searchLocation" small style="height: 55px"><v-icon>mdi-magnify</v-icon></v-btn>
           </v-row>
         </center>
       </v-container>
