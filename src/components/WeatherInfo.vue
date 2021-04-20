@@ -1,78 +1,147 @@
 <template>
-    <div v-if="forecast != ''">
-        <v-col>
-            <v-row>
-              <!-- {{forecast.city.name}}, {{forecast.city.country}} -->
-            </v-row>
-            <v-row>
-              Weather description: {{forecast.daily[0].weather[0].description}}
-            </v-row>
-            <v-row>
-              Current temperature: {{forecast.daily[0].temp.day}}
-            </v-row>
-            <v-row>          
-              Today's high temperature: {{forecast.daily[0].temp.max}}
-            </v-row>
-            <v-row>          
-              Today's low temperature: {{forecast.daily[0].temp.min}}
-            </v-row>
-            <v-switch
-            flat
-            value="blue"
-            v-model="additionalInfo"
-            label="View additional information"
-            />
-          
-          <div v-if="additionalInfo">
-            <v-row>
-                  Wind speed: {{forecast.current.wind_speed}}
-            </v-row>
-              <v-row>
-                  Humidity: {{forecast.daily[0].humidity}}
-              </v-row>
-              <v-row>
-                  Pressure: {{forecast.current.pressure}}
-              </v-row>
-              <v-row>
-                  Sunrise time: {{data.current.sunrise}}<br/>
-                  Sunset time: {{sunset}}
-              </v-row>
-          </div>
+    <v-card class="" outlined tile v-if="forecast != ''">
+    <v-app-bar><v-toolbar-title>Weather Information</v-toolbar-title></v-app-bar><br/>
+    <center>
+    <v-list-item two-line>
+      <v-list-item-content>
+        <v-list-item-title>
+          <h2>{{loc}}</h2>
+        </v-list-item-title>
+        <v-list-item-subtitle>{{forecast.daily[0].weather[0].description}}</v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+    </center>
+
+    
+    <v-card-text>
+      <v-row align="center">
+        <v-col
+          class="display-3"
+          cols="6"
+        >
+        <center>
+          <div class="temp"> 23&deg;C</div>
+        </center>
         </v-col>
+        <v-col cols="6">
+          <center>
+          <img :src="iconcode" width="92" />
+          </center>
+        </v-col>
+      </v-row>
+    </v-card-text>
+
+    <v-list-item>
+      <v-col>
+      <v-list-item-icon>
+        <v-icon >mdi-arrow-up</v-icon>
+      </v-list-item-icon>
+      </v-col>
+      <v-col>
+      <v-list-item-subtitle class="mx-2"> Maximum Temperature: {{forecast.daily[0].temp.max}}&deg;C</v-list-item-subtitle>
+      </v-col>
+      <v-col>
+      <v-list-item-icon>
+        <v-icon>mdi-arrow-down</v-icon>
+      </v-list-item-icon>
+      </v-col>
+      <v-col>
+      <v-list-item-subtitle>Minimum Temperature: {{forecast.daily[0].temp.min}}&deg;C</v-list-item-subtitle>
+      </v-col>
+    </v-list-item>
+
+      <v-list-item>
+      <v-switch
+      flat
+      value="blue"
+      v-model="additionalInfo"
+      label="View additional information"
+      />
+      </v-list-item>
+
+    
+    <div v-if="additionalInfo">
+      <v-list-item>
+        <v-col>
+        <v-list-item-icon>
+        <v-icon>mdi-send</v-icon>
+        </v-list-item-icon>
+        </v-col>
+      <v-list-item-subtitle> &nbsp; {{forecast.current.wind_speed}} km/h (Wind Speed)</v-list-item-subtitle>
+      </v-list-item>
+      <v-list-item>
+        <v-col>
+        <v-list-item-icon>
+        <v-icon>mdi-cloud-download</v-icon>
+        </v-list-item-icon>
+        </v-col>
+      <v-list-item-subtitle>{{forecast.daily[0].humidity}}% (Humidity percentage)</v-list-item-subtitle>
+    </v-list-item>
+    <v-list-item>
+      <v-col>
+        <v-list-item-icon>
+        <v-icon>mdi-speedometer</v-icon>
+        </v-list-item-icon>
+      </v-col>
+      <v-list-item-subtitle>{{forecast.current.pressure}} hPa (Current Pressure)</v-list-item-subtitle>
+    </v-list-item>
+    <v-list-item>
+      <v-col>
+        <v-list-item-icon>
+        <v-icon>mdi-weather-sunny</v-icon>
+        </v-list-item-icon>
+      </v-col>
+      <v-list-item-subtitle>{{sunrise}} IST</v-list-item-subtitle>
+      <v-col>
+        <v-list-item-icon>
+        <v-icon>mdi-weather-sunset</v-icon>
+        </v-list-item-icon>
+      </v-col>
+      <v-list-item-subtitle>{{sunset}} IST</v-list-item-subtitle>
+    </v-list-item>
     </div>
+  </v-card>
 </template>
 
 <script>
 export default {
     name: 'WeatherInfo',
-    props: [ 'forecast' ],
+    props: [ 'forecast', 'loc', 'iconcode' ],
     data () {
         return {
             sunrise: '',
             sunset: '',
-            additionalInfo: true
+            additionalInfo: false
         }
     },
     methods: {
-      calTime () {
-        let unix_timestamp = this.data.current.sunset
+    },
+    watch: {
+      forecast: function() {
+        let unix_timestamp = this.forecast.current.sunset
         var date = new Date(unix_timestamp * 1000);
         var hours = date.getHours();
         var minutes = "0" + date.getMinutes();
         var seconds = "0" + date.getSeconds();
         this.sunset = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+        console.log(this.sunset)
 
-        unix_timestamp = this.data.current.sunrise
+        unix_timestamp = this.forecast.current.sunrise
         date = new Date(unix_timestamp * 1000);
         hours = date.getHours();
         minutes = "0" + date.getMinutes();
         seconds = "0" + date.getSeconds();
         this.sunrise = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-    }
+
+        console.log(this.iconcode)
+        console.log("http://openweathermap.org/img/w/10d.png")
+      }
     }
 }
 </script>
 
 <style>
-
+  div.temp {
+    font-size: 60px;
+  }
 </style>
