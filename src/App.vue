@@ -53,7 +53,7 @@ import Forecast from './components/Forecast'
 export default {
   name: 'App',
   data: () => ({
-    search: '',
+    search: 'New York',
     loc: '',
     iconcode: '',
     api_key: '02b4b8ed49a645efa6ad10b63f2d9bdc',
@@ -109,6 +109,9 @@ export default {
         })
               
       }
+  },
+  created () {
+    this.searchLocation()
   }
 };
 </script>
