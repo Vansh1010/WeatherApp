@@ -5,9 +5,9 @@
     <v-list-item two-line>
       <v-list-item-content>
         <v-list-item-title>
-          <h2>{{loc}}</h2>
+          <h1>{{loc}}</h1>
         </v-list-item-title>
-        <v-list-item-subtitle>{{forecast.daily[0].weather[0].description}}</v-list-item-subtitle>
+        <v-list-item-subtitle style="fontSize: 120%">{{forecast.daily[0].weather[0].description}}</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
     </center>
@@ -38,7 +38,7 @@
       </v-list-item-icon>
       </v-col>
       <v-col>
-      <v-list-item-subtitle class="mx-2"> Maximum Temperature: {{forecast.daily[0].temp.max}}&deg;C</v-list-item-subtitle>
+      <v-list-item-subtitle> Max Temperature: {{forecast.daily[0].temp.max}}&deg;C</v-list-item-subtitle>
       </v-col>
       <v-col>
       <v-list-item-icon>
@@ -46,7 +46,7 @@
       </v-list-item-icon>
       </v-col>
       <v-col>
-      <v-list-item-subtitle>Minimum Temperature: {{forecast.daily[0].temp.min}}&deg;C</v-list-item-subtitle>
+      <v-list-item-subtitle>Min Temperature: {{forecast.daily[0].temp.min}}&deg;C</v-list-item-subtitle>
       </v-col>
     </v-list-item>
 
@@ -142,6 +142,6 @@ export default {
 
 <style>
   div.temp {
-    font-size: 60px;
+    font-size: 400%;
   }
 </style>

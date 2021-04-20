@@ -5,18 +5,19 @@
     </v-toolbar>
     <br />
     <!-- <center> -->
-      <v-container style="width: 30%">
-      <v-col>
-        <v-row>
+      <v-container style="width: 50%">
+        <center>
+          <v-row>
           <v-text-field
             label="Enter a location"
             v-model="search"
             filled
+            style="width:50%"
           >
           </v-text-field>
           <v-btn @click="searchLocation" style="height: 55px"><v-icon>mdi-magnify</v-icon></v-btn>
-        </v-row>
-      </v-col>
+          </v-row>
+        </center>
       </v-container>
       <v-container style="width: 100%">
       <v-row align="center" justify="center">
@@ -77,7 +78,6 @@ export default {
             this.latitude = res.coord.lat
             this.longitude = res.coord.lon
             this.loc = res.name + ', ' + res.sys.country
-            this.iconcode = "http://openweathermap.org/img/w/" + res.weather[0].icon + ".png"
             console.log(this.iconcode)
             console.log(this.loc)
             console.log(this.latitude)
@@ -90,6 +90,7 @@ export default {
             })
             .then(res => {
                 this.forecast = res
+                this.iconcode = "http://openweathermap.org/img/w/" + res.daily[0].weather[0].icon + ".png"
                 for(var i=0; i<this.forecast.daily.length; i++) {
                   this.chartData.maxTemps[i] = this.forecast.daily[i].temp.max
                   this.chartData.minTemps[i] = this.forecast.daily[i].temp.min
