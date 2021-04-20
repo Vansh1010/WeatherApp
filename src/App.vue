@@ -62,8 +62,8 @@ export default {
       maxTemps: [],
       minTemps: [],
       descriptions: [],
-      currDay: [],
-      dates: []
+      dates: [],
+      days: []
     }
   }),
   components: { WeatherInfo, Forecast },
@@ -91,11 +91,6 @@ export default {
             .then(res => {
                 this.forecast = res
                 for(var i=0; i<this.forecast.daily.length; i++) {
-                  if(i == 0) {
-                    this.chartData.currDay[i] = true
-                  }
-                  else
-                    this.chartData.currDay[i] = false;
                   this.chartData.maxTemps[i] = this.forecast.daily[i].temp.max
                   this.chartData.minTemps[i] = this.forecast.daily[i].temp.min
                   this.chartData.descriptions[i] = this.forecast.daily[i].weather[0].description
@@ -105,7 +100,9 @@ export default {
                   var date = new Date(milliseconds).getDate()
                   var month = new Date(milliseconds).getMonth()+1
                   var year = new Date(milliseconds).getFullYear()
+                  var day = new Date(milliseconds).getDay()
                   this.chartData.dates[i] = date + '/' + month + '/' + year
+                  this.chartData.days[i] = day
                 }
                 console.log(this.chartData)
             })

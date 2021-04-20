@@ -1,7 +1,7 @@
 <template>
   <v-card class=" pa-2" outlined tile v-if="forecast != null">
     <v-app-bar><v-toolbar-title>Weather Forecast</v-toolbar-title></v-app-bar><br/>
-    <line-chart class="small" :chart-data="datacollection"></line-chart>
+    <line-chart class="small" :chart-data="datacollection" :descriptions="chartData.descriptions" :days="chartData.days"></line-chart>
   </v-card>
 </template>
 
