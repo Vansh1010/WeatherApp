@@ -32,20 +32,20 @@
     </v-card-text>
 
     <v-list-item>
-      <v-col>
+      <v-col md="2" xs="2">
       <v-list-item-icon>
         <v-icon >mdi-arrow-up</v-icon>
       </v-list-item-icon>
       </v-col>
-      <v-col>
+      <v-col md="4" xs="10">
       <v-list-item-subtitle> Max Temperature: {{forecast.daily[0].temp.max}}&deg;C</v-list-item-subtitle>
       </v-col>
-      <v-col>
+      <v-col md="2" xs="2">
       <v-list-item-icon>
         <v-icon>mdi-arrow-down</v-icon>
       </v-list-item-icon>
       </v-col>
-      <v-col>
+      <v-col md="4" xs="10">
       <v-list-item-subtitle>Min Temperature: {{forecast.daily[0].temp.min}}&deg;C</v-list-item-subtitle>
       </v-col>
     </v-list-item>
@@ -142,6 +142,6 @@ export default {
 
 <style>
   div.temp {
-    font-size: 400%;
+    font-size: 300%;
   }
 </style>
